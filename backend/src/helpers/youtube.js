@@ -1,12 +1,16 @@
 const fs = require("fs");
-const ytdl = require("ytdl-core");
+const youtubedl = require("youtube-dl");
 
 
+/**
+ * @param {string} url URL of the video to download
+ * @returns {object} Video information
+ */
 async function getVideo(url) {
-  ytdl.getInfo(url)
-  .then(info => console.log(info))
-  .catch(err => console.log(err))
-
+  info = youtubedl.getInfo(url, (err, info) => {
+    return info
+  })
+return info
 }
 
-getVideo()%
+module.exports = {getVideo};
