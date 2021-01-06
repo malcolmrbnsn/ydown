@@ -8,10 +8,7 @@ export default function Navbar(props) {
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Landing</Link>
-                </li>
-                <li>
-                    <Link to="/library">Library</Link>
+                    <Link to="/">Library</Link>
                 </li>
             </ul>
         </nav>

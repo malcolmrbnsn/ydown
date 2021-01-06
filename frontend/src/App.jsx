@@ -1,37 +1,17 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import './App.css';
 
-import Navbar from "./components/common/Navbar"
-import Home from "./components/Home/Home"
-import Library from "./components/Library"
+import Navbar from "./components/Navbar"
+import Main from "./containers/Main"
 
 function App() {
   return (
     <Router>
-      <div>
-      {/* Navbar, always visible reguardless of url */}
       <Navbar />
-
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/library">
-            <Library />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Main />
     </Router>
-  );
+  )
 }
 
 export default App;
