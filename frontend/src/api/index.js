@@ -1,18 +1,19 @@
 import axios from "axios"
 const BASE_URL="http://192.168.0.4:4000/api"
 
-async function getVideo(url) {
-
-}
-
-async function getVideos() {
-    return await apiCall("get", "/videos/")
-}
-
+/**
+ * Makes a call to the backend API
+ * @param {String} method 
+ * @param {String} path 
+ */
 async function apiCall(method, path) {
-    let request = await axios[method](BASE_URL + path)
+    try {
+        let request = await axios[method](BASE_URL + path)
 
-    return request.data
+        return request.data
+    } catch (error) {
+        throw error
+    }
 }
 
-export default getVideos
+export default apiCall
