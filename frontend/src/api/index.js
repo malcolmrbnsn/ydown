@@ -1,5 +1,5 @@
 import axios from "axios"
-const BASE_URL="http://192.168.0.4:4000/api"
+const BASE_URL="/api"
 
 /**
  * Makes a call to the backend API

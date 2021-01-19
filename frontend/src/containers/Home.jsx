@@ -10,6 +10,8 @@ class Home extends React.Component {
             isFetching: true,
             videos: []
         }
+
+        this.addVideo = this.addVideo.bind(this);
     }
     componentDidMount() {
         apiCall("get", "/videos/")
@@ -28,7 +30,7 @@ class Home extends React.Component {
         apiCall("post", "/videos/" + id)
         .then(video => {
             // update state
-            let videos = this.state.videos.push(video)
+            let videos = this.state.videos.concat(video)
             this.setState({videos})
         })
 

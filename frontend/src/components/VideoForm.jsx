@@ -27,6 +27,7 @@ export default class VideoForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>Add a video: </label> <br />
                     <input type="text" value={this.state.inputValue} onChange={this.handleChange} />
+                    <button type="submit">Add Video</button>
                 </form>
             </div>
         )
