@@ -33,7 +33,6 @@ class Home extends React.Component {
             let videos = this.state.videos.concat(video)
             this.setState({videos})
         })
-
     }
     
     deleteVideo(id) {

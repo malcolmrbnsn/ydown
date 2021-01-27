@@ -20,7 +20,6 @@ class App extends React.Component {
     }
 
     handleAuthSubmit(e) {
-        
 
     }
 
@@ -30,7 +29,7 @@ class App extends React.Component {
                 <Navbar/>
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-                <Switch>"
+                <Switch>
                     <Route path="/videos/:id" component={Video} />
                     <Route path="/login" render={(props) => <AuthForm authType="Login" {...props}></AuthForm>}/>
                     <Route path="/signup" render={(props) => <AuthForm authType="Signup" {...props}></AuthForm>}/>
