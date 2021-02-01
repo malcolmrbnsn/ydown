@@ -8,7 +8,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             isFetching: true,
-            videos: []
+            videos: [],
             message: ""
         }
 
@@ -22,7 +22,7 @@ class Home extends React.Component {
                     videos
                 })
             })
-            .catch(error => this.setState({ message: "An error occured. Please check your internet connection"})
+            .catch(error => this.setState({ message: "An error occured. Please check your internet connection"}))
     }
 
     addVideo(url) {
