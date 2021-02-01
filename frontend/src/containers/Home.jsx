@@ -36,13 +36,15 @@ class Home extends React.Component {
     }
     
     deleteVideo(id) {
-        let videos = this.state.videos.filter(video => video.videoId !== id)
-        this.setState({
-            videos
-        })
         //make api call
         apiCall("delete", "/videos/" + id)
-        //assume ok
+        .then(() => {
+            //assume ok
+            let videos = this.state.videos.filter(video => video.videoId !== id)
+            this.setState({
+                videos
+            })
+        })
     }
 
     render() {

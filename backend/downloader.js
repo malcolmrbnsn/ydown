@@ -20,6 +20,5 @@ async function downloadVideos() {
             })
     });
 }
-downloadVideos()
 
 const job = schedule.scheduleJob('0 1 * * *', downloadVideos)
