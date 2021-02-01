@@ -9,6 +9,7 @@ class Home extends React.Component {
         this.state = {
             isFetching: true,
             videos: []
+            message: ""
         }
 
         this.addVideo = this.addVideo.bind(this);
@@ -21,6 +22,7 @@ class Home extends React.Component {
                     videos
                 })
             })
+            .catch(error => this.setState({ message: "An error occured. Please check your internet connection"})
     }
 
     addVideo(url) {

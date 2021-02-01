@@ -4,6 +4,8 @@ import {
     Switch,
     Route
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 import Video from "./containers/Video"
 import Home from "./containers/Home"
 import AuthForm from './containers/AuthForm';
