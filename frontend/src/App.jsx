@@ -10,7 +10,7 @@ import Video from "./containers/Video"
 import Home from "./containers/Home"
 import AuthForm from './containers/AuthForm';
 
-import Navbar from "./components/Navbar"
+import Header from "./components/Header"
 
 class App extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Navbar/>
+                <Header/>
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
 
 export default class AuthForm extends Component {
     constructor(props) {
@@ -20,20 +22,24 @@ export default class AuthForm extends Component {
     render() {
         const { authType } = this.props
         return (
-            <div>
+            <Container>
+            <Form>
                 <h1>{authType}</h1>
-                <label>Email</label><br />
-                <input type="text" name="email" onChange={this.handleChange} value={this.state.a} /><br />
-                {authType === "Signup" && (
-                    <div>
-                        <label>Username</label><br />
-                        <input type="text" name="username" onChange={this.handleChange} value={this.state.a} />
-                    </div>
+                <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" name="email" onChange={this.handleChange} value={this.state.a}/>
+                </Form.Group>
+                {authType === "Signup" && (<Form.Group>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="username" name="username" onChange={this.handleChange} value={this.state.a} />
+                    </Form.Group>
                 )}
-                <label>Password</label><br />
-                <input type="password" name="password" onChange={this.handleChange} value={this.state.a} /><br />
-                <button onClick={this.props.handleAuthSubmit}>{authType}</button>
-            </div>
+                <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" name="password" onChange={this.handleChange} value={this.state.a} />
+                </Form.Group>
+            </Form>
+            </Container>
         )
     }
 }

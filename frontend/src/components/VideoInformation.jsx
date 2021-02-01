@@ -1,10 +1,13 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 function splitLine(text) {
     return text.split('\n').map((item, key) => {
-  return <span key={key}>{item}<br/></span>
-})
+        return <span key={key}>{item}<br /></span>
+    })
 }
 
 export default function VideoInformation(props) {
@@ -17,19 +20,21 @@ export default function VideoInformation(props) {
         uploadDate,
         videoId
     } = props.video
+
     return (
-        <div>
-            <h2>{title}</h2>
-            <h3>{channel}</h3>
-            <p>
-                {splitLine(description)}
-            </p>
-            <p>
-                {downloaded ? <Link to={"/videos/" + videoId} >Play Now</Link> : "Avaliable to Download"}
-                <br/>
-                <button onClick={() => this.props.deleteVideo(videoId)}>Delete</button>
-            </p>
-            <hr />
-        </div>
+        <Card>
+            <Card.Body>
+                <Card.Title>{title}</Card.Title>
+                <Card.Subtitle>{channel}</Card.Subtitle>
+                <Card.Text>
+                    {splitLine(description)}
+                </Card.Text>
+                {downloaded ?
+                    <Button variant="primary" as={Link} to={"/videos/" + videoId}>Play Now</Button> :
+                    <Card.Link>Avaliable to Download</Card.Link>}
+                <Button variant="danger">Delete</Button>
+            </Card.Body>
+        </Card>
     )
+
 }
