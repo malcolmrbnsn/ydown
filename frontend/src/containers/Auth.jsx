@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 
-export default class AuthForm extends Component {
+export default class Auth extends Component {
     constructor(props) {
         super(props);
         this.state = {

@@ -6,9 +6,9 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import Video from "./containers/Video"
+import VideoPlayer from "./containers/VideoPlayer"
 import Home from "./containers/Home"
-import AuthForm from './containers/AuthForm';
+import Auth from './containers/Auth';
 
 import Header from "./components/Header"
 
@@ -28,13 +28,13 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Header/>
+                <Header {...this.state}/> {/*pass auth state to the header to add correct links */}
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <Route path="/videos/:id" component={Video} />
-                    <Route path="/login" render={(props) => <AuthForm authType="Login" {...props}></AuthForm>}/>
-                    <Route path="/signup" render={(props) => <AuthForm authType="Signup" {...props}></AuthForm>}/>
+                    <Route path="/videos/:id" component={VideoPlayer} />
+                    <Route path="/login" render={(props) => <Auth authType="Login" {...props}></Auth>}/>
+                    <Route path="/signup" render={(props) => <Auth authType="Signup" {...props}></Auth>}/>
                     <Route exact path="/" component={Home} />
                 </Switch>
             </Router>

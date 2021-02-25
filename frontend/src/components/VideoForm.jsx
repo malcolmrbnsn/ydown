@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 export default class VideoForm extends Component {
     constructor(props) {
@@ -23,13 +26,18 @@ export default class VideoForm extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Add a video: </label> <br />
-                    <input type="text" value={this.state.inputValue} onChange={this.handleChange} />
-                    <button type="submit">Add Video</button>
-                </form>
-            </div>
+            <Container>
+                <h3>Add a video</h3>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group>
+                        <Form.Label>Video URL</Form.Label>
+                        <Form.Control type="text" value={this.state.inputValue} onChange={this.handleChange} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </Container>
         )
     }
 }

@@ -1,9 +1,8 @@
 import React from 'react'
 import apiCall from "../api"
-import VideoInformation from '../components/VideoInformation';
+import VideoCard from '../components/VideoCard';
 import VideoForm from "../components/VideoForm"
 import Container from 'react-bootstrap/Container'
-import CardDeck from 'react-bootstrap/CardDeck'
 
 class Home extends React.Component {
     constructor(props) {
@@ -52,7 +51,7 @@ class Home extends React.Component {
     }
 
     render() {
-        let videos = this.state.videos.map((video) => <VideoInformation deleteVideo={this.deleteVideo} video={video} key={video._id} />)
+        let videos = this.state.videos.map((video) => <VideoCard deleteVideo={this.deleteVideo} video={video} key={video._id} />)
         return (
             <Container>
                 <h1>Library</h1>
