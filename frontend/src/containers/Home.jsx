@@ -4,6 +4,8 @@ import VideoCard from '../components/VideoCard';
 import VideoForm from "../components/VideoForm"
 import Container from 'react-bootstrap/Container'
 
+import CardDeck from 'react-bootstrap/CardDeck'
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -60,7 +62,9 @@ class Home extends React.Component {
                 {this.state.isFetching ?
                     <h1>Loading !!</h1> :
                     <div>
+                        <CardDeck>
                         {videos}
+                        </CardDeck>
                     </div>
                 }
             </Container>
