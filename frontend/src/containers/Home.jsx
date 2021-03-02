@@ -57,14 +57,17 @@ class Home extends React.Component {
         return (
             <Container>
                 <h1>Library</h1>
-                <VideoForm addVideo={this.addVideo} />
+                {
+                    this.props.loggedIn && <VideoForm addVideo={this.addVideo} />
+                }
+                
 
                 {this.state.isFetching ?
                     <h1>Loading !!</h1> :
                     <div>
-                        <CardDeck>
+                        {/* <CardDeck> */}
                         {videos}
-                        </CardDeck>
+                        {/* </CardDeck> */}
                     </div>
                 }
             </Container>

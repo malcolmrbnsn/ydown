@@ -35,7 +35,7 @@ class App extends React.Component {
                     <Route path="/videos/:id" component={VideoPlayer} />
                     <Route path="/login" render={(props) => <Auth authType="Login" {...props}></Auth>}/>
                     <Route path="/signup" render={(props) => <Auth authType="Signup" {...props}></Auth>}/>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/" render={(props) => <Home loggedIn={this.state.loggedIn} {...props}/>} />
                 </Switch>
             </Router>
         );
