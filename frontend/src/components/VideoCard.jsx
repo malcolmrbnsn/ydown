@@ -22,6 +22,7 @@ export default function VideoCard(props) {
     } = props.video
 
     return (
+       <div class="sixteen wide mobile eight wide tablet four wide computer column">
         <Card>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
@@ -35,6 +36,7 @@ export default function VideoCard(props) {
                 <Button variant="danger">Delete</Button>
             </Card.Body>
         </Card>
+        </div>
     )
 
 }

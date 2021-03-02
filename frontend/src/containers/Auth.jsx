@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 export default class Auth extends Component {
     constructor(props) {
@@ -37,6 +38,9 @@ export default class Auth extends Component {
                 <Form.Group>
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" name="password" onChange={this.handleChange} value={this.state.a} />
+                </Form.Group>
+                <Form.Group>
+                    <Button type="submit">{authType}</Button>
                 </Form.Group>
             </Form>
             </Container>
