@@ -64,10 +64,8 @@ class Home extends React.Component {
 
                 {this.state.isFetching ?
                     <h1>Loading !!</h1> :
-                    <div>
-                        {/* <CardDeck> */}
+                    <div className="ui grid container">
                         {videos}
-                        {/* </CardDeck> */}
                     </div>
                 }
             </Container>
