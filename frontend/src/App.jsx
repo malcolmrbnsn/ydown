@@ -17,7 +17,12 @@ class App extends React.Component {
         super(props);
         this.state = {
             loggedIn: false,
-            user: {}
+            user: {},
+            message: {
+                text: "yoooo",
+                isVisable: true,
+                type: "success"
+            }
         }
     }
 
@@ -28,14 +33,15 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Header {...this.state}/> {/*pass auth state to the header to add correct links */}
+                <Header {...this.state} />
+                {/*pass auth state to the header to add correct links */}
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
                     <Route path="/videos/:id" component={VideoPlayer} />
-                    <Route path="/login" render={(props) => <Auth authType="Login" {...props}></Auth>}/>
-                    <Route path="/signup" render={(props) => <Auth authType="Signup" {...props}></Auth>}/>
-                    <Route exact path="/" render={(props) => <Home loggedIn={this.state.loggedIn} {...props}/>} />
+                    <Route path="/login" render={(props) => <Auth authType="Login" {...props}></Auth>} />
+                    <Route path="/signup" render={(props) => <Auth authType="Signup" {...props}></Auth>} />
+                    <Route exact path="/" render={(props) => <Home message={this.state.message} loggedIn={this.state.loggedIn} {...props} />} />
                 </Switch>
             </Router>
         );

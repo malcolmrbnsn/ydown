@@ -2,21 +2,24 @@ import React from 'react'
 import apiCall from "../api"
 import VideoCard from '../components/VideoCard';
 import VideoForm from "../components/VideoForm"
-import Container from 'react-bootstrap/Container'
+import Message from "../components/Message"
 
-import CardDeck from 'react-bootstrap/CardDeck'
+import Container from 'react-bootstrap/Container'
+import CardColumns from 'react-bootstrap/CardColumns'
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isFetching: true,
-            videos: [],
-            message: ""
+            videos: []
         }
 
+        // Bind the state updates to the correct components
         this.addVideo = this.addVideo.bind(this);
+        this.deleteVideo = this.deleteVideo.bind(this);
     }
+
     componentDidMount() {
         apiCall("get", "/videos/")
             .then(videos => {
@@ -25,7 +28,7 @@ class Home extends React.Component {
                     videos
                 })
             })
-            .catch(error => this.setState({ message: "An error occured. Please check your internet connection" }))
+            // .catch(error => this.setState({ message: { text: "An error occured. Please check your internet connection", isShowing: true } }))
     }
 
     addVideo(url) {
@@ -57,16 +60,17 @@ class Home extends React.Component {
         return (
             <Container>
                 <h1>Library</h1>
+                <Message message={this.props.message}></Message>
                 {
                     this.props.loggedIn && <VideoForm addVideo={this.addVideo} />
                 }
-                
+
 
                 {this.state.isFetching ?
                     <h1>Loading !!</h1> :
-                    <div className="ui grid container">
+                    <CardColumns>
                         {videos}
-                    </div>
+                    </CardColumns>
                 }
             </Container>
         )

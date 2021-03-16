@@ -40,7 +40,7 @@ router.delete("/:id", async (req, res) => {
     let video = await db.Video.findOne({ videoId: req.params.id });
     await db.Video.findOneAndDelete({ videoId: req.params.id });
     if (video.downloaded) {
-      await fs.unlinkSync(path.join(__dirname, "../", "public", "video", req.params.id + ".mp4"))
+      fs.unlinkSync(path.join(__dirname, "../", "public", "video", req.params.id + ".mp4"))
     }
     return res.status(204).json({ success: true })
 

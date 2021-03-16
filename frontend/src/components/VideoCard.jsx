@@ -22,7 +22,6 @@ export default function VideoCard(props) {
     } = props.video
 
     return (
-       <div class="sixteen wide mobile eight wide tablet four wide computer column">
         <Card>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
@@ -33,10 +32,9 @@ export default function VideoCard(props) {
                 {downloaded ?
                     <Button variant="primary" as={Link} to={"/videos/" + videoId}>Play Now</Button> :
                     <Card.Link>Avaliable to Download</Card.Link>}
-                <Button variant="danger">Delete</Button>
+                <Button onClick={e => props.deleteVideo(videoId)} variant="danger">Delete</Button>
             </Card.Body>
         </Card>
-        </div>
     )
 
 }
