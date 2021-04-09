@@ -10,16 +10,15 @@ export default function VideoCard(props) {
         channel,
         description,
         downloaded,
-        length,
         title,
-        uploadDate,
-        videoId
+        videoId,
+        watched
     } = props.video
 
     return (
         <Card>
             <Card.Body>
-                <Card.Title><Link to={"/videos/" + videoId + "/info"}>{trimText(title, 25)}</Link></Card.Title>
+                <Card.Title><Link to={"/videos/" + videoId }>{trimText(title, 25)}</Link></Card.Title>
                 <Card.Subtitle>{channel}</Card.Subtitle>
                 <Card.Text>
                     {trimText(description, 70)}
@@ -28,6 +27,7 @@ export default function VideoCard(props) {
                     <Button variant="primary" as={Link} to={"/videos/" + videoId + "/watch"}>Play Now</Button> :
                     <Card.Link>Avaliable to Download</Card.Link>}
                 <Button onClick={e => props.deleteVideo(videoId)} variant="danger">Delete</Button>
+                <p>{watched}</p>
             </Card.Body>
         </Card>
     )

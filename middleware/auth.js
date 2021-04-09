@@ -7,9 +7,10 @@ exports.checkLogin = function(req, res, next) {
         next();
     } else {
         // send message to prompt login, deny action
-        return res.status(401).json({
-            message: "Please log in"
-        })
+        // return res.status(401).json({
+        //     message: "Please log in"
+        // })
+        next()
     }
 }
 

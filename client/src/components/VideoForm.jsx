@@ -20,7 +20,7 @@ export default class VideoForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.addVideo(this.state.inputValue)
+        this.props.newVideo(this.state.inputValue)
     }
 
     render() {

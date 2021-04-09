@@ -25,3 +25,4 @@ async function downloadVideos() {
 
 // set the schedule to run at 1AM everyday
 const job = schedule.scheduleJob('0 1 * * *', downloadVideos)
+console.log("DOWNLOADER: ready")

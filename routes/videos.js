@@ -7,7 +7,7 @@ const {checkLogin} = require("../middleware/auth")
 
 router.get("/", async (req, res) => {
   // get all videos from the database
-  let videos = await db.Video.find();
+  let videos = await db.Video.find().sort({date: 'ascending'}).exec();
   // return to user
   return res.status(200).json(videos);
 })

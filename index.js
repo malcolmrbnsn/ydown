@@ -10,7 +10,7 @@ require("dotenv").config();
 //  App setup
 // ------------
 // log HTTP requests
-app.use(morgan('dev'));
+app.use(morgan());
 
 // allow cross-origin requests
 app.use(cors());
@@ -24,6 +24,11 @@ app.use(cookieSession({ secret: process.env.COOKIE_SECRET }));
 // Static routes
 app.use(express.static('public'));
 
+// serve rendered frontend if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 // import routes
 const VideosRoutes = require("./routes/videos"),
   AuthRoutes = require("./routes/auth");
@@ -32,4 +37,5 @@ const VideosRoutes = require("./routes/videos"),
 app.use("/api/videos", VideosRoutes);
 app.use("/api/auth", AuthRoutes);
 
-app.listen(4000, () => console.log(`app is listening to port 4000`));
+const PORT = process.env.PORT
+app.listen(PORT, () => console.log(`SERVER: listening to port ${PORT}`));

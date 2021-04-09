@@ -30,6 +30,11 @@ const VideoSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    watched: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 })
 
