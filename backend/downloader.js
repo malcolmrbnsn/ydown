@@ -13,14 +13,15 @@ async function downloadVideos() {
         const id = video.videoId
         const filename = id + ".mp4"
         ytdl(id)
-            .pipe(fs.createWriteStream(path.join(__dirname, "public", "video", filename)))
+            .pipe(fs.createWriteStream(path.join(__dirname, "public", "video", filename))) // pipe the video data to the file path
             .on("close", async () => {
+                // log to console success
                 console.log("downloaded video: " + id)
+                // update downloaded status in the database
                 await db.Video.findOneAndUpdate({videoId: id}, {downloaded: true, url: "/video/" + filename})
             })
     });
 }
 
-downloadVideos();
-
+// set the schedule to run at 1AM everyday
 const job = schedule.scheduleJob('0 1 * * *', downloadVideos)
