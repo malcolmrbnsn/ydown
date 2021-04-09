@@ -98,7 +98,7 @@ class App extends React.Component {
                 {/* Looks through each route and renders the first matching one */}
                 <Switch>
                     <Route path="/videos/:id/info" component={VideoInfo} />
-                    <Route path="/videos/:id" component={VideoPlayer} />
+                    <Route path="/videos/:id/watch" component={VideoPlayer} />
                     <Route path="/login" render={(props) => <Auth authType="Login" {...props} handleAuthSubmit={this.handleAuthSubmit}></Auth>} />
                     <Route path="/signup" render={(props) => <Auth authType="Signup" {...props} handleAuthSubmit={this.handleAuthSubmit}></Auth>} />
                     <Route exact path="/" render={(props) => <Home {...this.state} {...props} handleAuthSubmit addVideo deleteVideo/>} />
