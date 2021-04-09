@@ -2,13 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
-function splitLine(text) {
-    return text.substring(0, 100).split('\n').map((item, key) => {
-        return <span key={key}>{item}<br /></span>
-    })
-}
+import {trimText} from '../tools'
 
 export default function VideoCard(props) {
     let {
@@ -24,10 +19,10 @@ export default function VideoCard(props) {
     return (
         <Card>
             <Card.Body>
-                <Card.Title>{title}</Card.Title>
+                <Card.Title>{trimText(title, 25)}</Card.Title>
                 <Card.Subtitle>{channel}</Card.Subtitle>
                 <Card.Text>
-                    {splitLine(description)}
+                    {trimText(description, 70)}
                 </Card.Text>
                 {downloaded ?
                     <Button variant="primary" as={Link} to={"/videos/" + videoId}>Play Now</Button> :

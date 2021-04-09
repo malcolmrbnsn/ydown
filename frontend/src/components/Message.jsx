@@ -2,13 +2,10 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert'
 
 function Message(props) {
-    let { text, isVisable, type } = props.message
+    let { text, isVisable, type } = props
     return (
-        // <Alert >
-        //     {props.text}
-        // </Alert>
-        <Alert variant={type} onClose={() => props.message.isVisable=false} dismissible>
-            This is a alert—check it out!
+        <Alert variant={type} show={isVisable} onClose={props.dismissAlert} dismissible>
+            {text}
         </Alert>
     );
 }

@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 
 function Header(props) {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg">
             <Navbar.Brand as={Link} to="/">yDown</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />
             <Navbar.Collapse id="navbar-nav">

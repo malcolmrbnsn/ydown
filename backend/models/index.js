@@ -6,5 +6,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useFindAndM
 .then(() => console.log("database connected"))
 .catch(error => console.log(error))
 
+// import the video and user models
 module.exports.Video = require("./video")
 module.exports.User = require("./user")

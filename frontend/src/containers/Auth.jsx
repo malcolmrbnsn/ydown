@@ -24,7 +24,7 @@ export default class Auth extends Component {
         const { authType } = this.props
         return (
             <Container>
-            <Form>
+            <Form onSubmit={e => {e.preventDefault(); this.props.handleAuthSubmit(this.state)}}>
                 <h1>{authType}</h1>
                 <Form.Group>
                 <Form.Label>Email</Form.Label>
