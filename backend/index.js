@@ -24,11 +24,6 @@ app.use(cookieSession({ secret: process.env.COOKIE_SECRET }));
 // Static routes
 app.use(express.static('public'));
 
-// serve rendered frontend if in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
-
 // import routes
 const VideosRoutes = require("./routes/videos"),
   AuthRoutes = require("./routes/auth");

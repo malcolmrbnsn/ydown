@@ -4,11 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\" \"npm run downloader\"",
-    "prod": "concurrently \"npm run server\" \"npm run downloader\"",
-    "server": "nodemon index.js",
-    "client": "node start-client.js",
-    "downloader": "node downloader.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +22,6 @@
     "ytdl-core": "^4.5.0"
   },
   "devDependencies": {
-    "concurrently": "^6.0.1"
   },
   "nodemonConfig": {
     "ignore": [
