@@ -1,3 +1,65 @@
 version: '3.7'
 services:
-        
+    ydown-api:
+        build:
+            context: ./api
+            dockerfile: Dockerfile
+        image: ydown-api
+        container_name: ydown-api
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_HOSTNAME=$ydown-mongo
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+            - COOKIE_SECRET=$COOKIE_SECRET
+            - API_PORT=$API_PORT
+            - NODE_ENV=$NODE_ENV
+    ydown-frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        image: ydown-frontend
+        container_name: ydown-frontend
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - API_PORT=$API_PORT
+            - API_URL=
+            - NODE_ENV=$NODE_ENV
+    ydown-downloader:
+        build:
+            context: ./downloader
+            dockerfile: Dockerfile
+        image: ydown-downloader
+        container_name: ydown-downloader
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_HOSTNAME=$ydown-mongo
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+            - NODE_ENV=$NODE_ENV
+            - DOWNLOAD_PATH=$DOWNLOAD_PATH
+  ydown_mongo:
+    image: mongo:latest
+    container_name: ydown_mongo
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    volumes:
+      - ./mongo:/data/db
+    networks:
+      - app-network
+
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: 
