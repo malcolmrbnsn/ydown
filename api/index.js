@@ -22,7 +22,8 @@ app.use(bodyParser.json());
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET }));
 
 // Static routes
-app.use(express.static('public'));
+const DOWNLOAD_PATH = process.env.DOWNLOAD_PATH;
+app.use('/api/videos', express.static(DOWNLOAD_PATH));
 
 // import routes
 const VideosRoutes = require("./routes/videos"),
