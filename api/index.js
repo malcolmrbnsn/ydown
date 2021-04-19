@@ -32,5 +32,5 @@ const VideosRoutes = require("./routes/videos"),
 app.use("/api/videos", VideosRoutes);
 app.use("/api/auth", AuthRoutes);
 
-const PORT = process.env.PORT
+const PORT = process.env.API_PORT | 3000
 app.listen(PORT, () => console.log(`SERVER: listening to port ${PORT}`));

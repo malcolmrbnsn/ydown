@@ -8,9 +8,9 @@ WORKDIR /usr/src/app
 # Install server dependencies
 COPY package*.json ./
 RUN npm install
-
+RUN npm build
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3000
 
-CMD ['npm' 'start']
+CMD ['npm' 'prod']

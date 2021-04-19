@@ -8,6 +8,8 @@ services:
         container_name: ydown-api
         restart: unless-stopped
         env_file: .env
+        networks:
+          - front
         environment:
             - MONGO_USERNAME=$MONGO_USERNAME
             - MONGO_PASSWORD=$MONGO_PASSWORD
@@ -25,10 +27,12 @@ services:
         container_name: ydown-frontend
         restart: unless-stopped
         env_file: .env
+        networks:
+          - front
         environment:
-            - API_PORT=$API_PORT
-            - API_URL=
+            - API_URI=http://${ydown-api}:${API_PORT}/api 
             - NODE_ENV=$NODE_ENV
+            - FRONTEND_PORT=$FRONTEND_PORT
     ydown-downloader:
         build:
             context: ./downloader
@@ -56,10 +60,8 @@ services:
     volumes:
       - ./mongo:/data/db
     networks:
-      - app-network
+      - front
 
 networks:
   front:
     driver: bridge
-  back:
-    driver: 
