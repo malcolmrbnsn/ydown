@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import './VideoForm.css'
 
 export default class VideoForm extends Component {
     constructor(props) {
@@ -29,7 +27,7 @@ export default class VideoForm extends Component {
             <div>
                 <Form onSubmit={this.handleSubmit}>
                     <div class="input-group">
-                        <input type="text" class="form-control" type="text" placeholder="Enter a video URL to download..." value={this.state.inputValue} onChange={this.handleChange} />
+                        <input type="text" class="form-control" placeholder="Enter a video URL to download..." value={this.state.inputValue} onChange={this.handleChange} />
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </div>
