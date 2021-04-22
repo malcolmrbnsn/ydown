@@ -4,8 +4,6 @@ const schedule = require("node-schedule"),
     path = require("path"),
     db = require("./models")
 
-const DOWNLOAD_PATH=process.env.DOWNLOAD_PATH
-
 async function downloadVideos() {
     // get list of videos to download
     let videos = await db.Video.find({ downloaded: false });
@@ -15,7 +13,7 @@ async function downloadVideos() {
         const id = video.videoId
         const filename = id + ".mp4"
         ytdl(id)
-            .pipe(fs.createWriteStream(path.join(DOWNLOAD_PATH, filename))) // pipe the video data to the file path
+            .pipe(fs.createWriteStream(path.join(__dirname, "public", "video", filename))) // pipe the video data to the file path
             .on("close", async () => {
                 // log to console success
                 console.log("downloaded video: " + id)

@@ -1,5 +1,5 @@
 import axios from "axios"
-const {API_URL} = process.env
+const BASE_URL="/api"
 
 /**
  * Makes a call to the backend API
@@ -8,7 +8,7 @@ const {API_URL} = process.env
  */
 async function apiCall(method, path, data) {
     try {
-        let request = await axios[method](API_URL + ":" + API_PORT + "/api/" + path, data)
+        let request = await axios[method](BASE_URL + path, data)
 
         return request.data
     } catch (error) {
