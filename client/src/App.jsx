@@ -21,7 +21,7 @@ class App extends React.Component {
             loggedIn: true,
             user: {},
             message: {
-                text: "",
+                text: "fuck martin",
                 isVisable: false,
                 type: "success"
             },
