@@ -22,12 +22,8 @@ app.use(bodyParser.json());
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET }));
 
 // Static routes
-app.use(express.static('public'));
-
-// serve rendered frontend if in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+const DOWNLOAD_PATH = process.env.DOWNLOAD_PATH;
+app.use('/api/videos', express.static(DOWNLOAD_PATH));
 
 // import routes
 const VideosRoutes = require("./routes/videos"),
@@ -37,5 +33,5 @@ const VideosRoutes = require("./routes/videos"),
 app.use("/api/videos", VideosRoutes);
 app.use("/api/auth", AuthRoutes);
 
-const PORT = process.env.PORT
+const PORT = process.env.API_PORT | 3000
 app.listen(PORT, () => console.log(`SERVER: listening to port ${PORT}`));

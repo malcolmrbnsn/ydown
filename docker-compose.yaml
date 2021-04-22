@@ -1,0 +1,77 @@
+version: '3.7'
+services:
+    ydown-api:
+        build:
+            context: ./api
+            dockerfile: Dockerfile
+        image: ydown-api
+        container_name: ydown-api
+        restart: unless-stopped
+        env_file: .env
+        networks:
+          - front
+        volumes:
+          - ./videos:/usr/src/videos
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_HOSTNAME=-mongo
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+            - COOKIE_SECRET=$COOKIE_SECRET
+            - API_PORT=$API_PORT
+            - NODE_ENV=$NODE_ENV
+            - DOWNLOAD_PATH=$DOWNLOAD_PATH
+    ydown-frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        image: ydown-frontend
+        container_name: ydown-frontend
+        restart: unless-stopped
+        env_file: .env
+        networks:
+          - front
+        environment:
+            - API_URI=http://${ydown-api}:${API_PORT}/api 
+            - NODE_ENV=$NODE_ENV
+            - FRONTEND_PORT=$FRONTEND_PORT
+    ydown-downloader:
+        build:
+            context: ./downloader
+            dockerfile: Dockerfile
+        image: ydown-downloader
+        container_name: ydown-downloader
+        restart: unless-stopped
+        env_file: .env
+        networks:
+          - back
+        volumes:
+          - ./videos:/usr/src/videos
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_HOSTNAME=$ydown-mongo
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+            - NODE_ENV=$NODE_ENV
+            - DOWNLOAD_PATH=$DOWNLOAD_PATH
+    ydown_mongo:
+      image: mongo:latest
+      container_name: ydown_mongo
+      restart: unless-stopped
+      env_file: .env
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+        - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+      volumes:
+        - ./mongo:/data/db
+      networks:
+        - front
+        - back
+
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge
