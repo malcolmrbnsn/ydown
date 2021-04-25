@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 
+import apiCall from "../api"
+
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,13 @@ export default class LoginForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("woowoowowowo")
+        apiCall("post", "/auth/login", this.state)
+        .then(data => {
+            this.props.updateAuth(data.user, true)
+        })
+        .catch(error => {
+            this.props.showAlert(error.message)
+        })
     }
 
     render() {

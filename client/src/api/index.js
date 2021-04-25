@@ -12,11 +12,11 @@ function apiCall(method, path, data={}) {
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](BASE_URL + path, data)
       .then(res => {
-        return resolve(res.data);
+          return resolve(res.data);
       })
-      .catch(err => {
-        return reject(err.response.error);
-      });
+      .catch(error => {
+        return reject(error.response.data.error)
+      }) 
   });
 }
 

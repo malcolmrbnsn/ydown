@@ -60,8 +60,17 @@ class App extends React.Component {
             })
     }
 
-    showAlert() {
-
+    /**
+     * Updates the application state to show an alert message
+     * @param {string} message to show 
+     */
+    showAlert(text) {
+        this.setState({
+            message: {
+                text,
+                isVisable: true
+            }
+        })
     }
 
     dismissAlert() {
@@ -72,7 +81,12 @@ class App extends React.Component {
         })
     }
 
-    updateAuth(user) {
+    /**
+     * Updates the application state to sign in or out
+     * @param {Object} user data
+     * @param {boolean} if the user is logged in
+     */
+    updateAuth(user, isLoggedIn) {
         this.setState({
             user,
             isLoggedIn: true
@@ -99,11 +113,11 @@ class App extends React.Component {
                 {/* Looks through each route and renders the first matching one */}
                 <Switch>
                     <Route path="/videos/:id" render={(props) => this.state.isLoggedIn ? <VideoInfo {...this.state} {...props} /> : props.history.push("/login")} />
-                    <Route path="/login" render={(props) => <LoginForm updateAuth={this.updateAuth} {...props}></LoginForm>} />
-                    <Route path="/signup" render={(props) => <SignupForm updateAuth={this.updateAuth} {...props}></SignupForm>} />
-                    <Route exact path="/" render={(props) => this.state.isLoggedIn ? 
-                    <Home {...this.state} newVideo={this.newVideo} deleteVideo={this.deleteVideo} {...props} /> :
-                        props.history.push("/login") } />
+                    <Route path="/login" render={(props) => <LoginForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></LoginForm>} />
+                    <Route path="/signup" render={(props) => <SignupForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></SignupForm>} />
+                    <Route exact path="/" render={(props) => this.state.isLoggedIn ?
+                        <Home {...this.state} newVideo={this.newVideo} deleteVideo={this.deleteVideo} {...props} /> :
+                        props.history.push("/login")} />
                 </Switch>
             </Router>
         );

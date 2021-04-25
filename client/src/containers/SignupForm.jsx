@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 
+import apiCall from "../api"
+
 export default class SignupForm extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,13 @@ export default class SignupForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        
+        apiCall("post", "/auth/signup", this.state)
+        .then(data => {
+            this.props.updateAuth(data.user, true)
+        })
+        .catch(error => {
+            this.props.showAlert(error.message)
+        })
     }
 
     render() {

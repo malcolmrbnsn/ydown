@@ -19,7 +19,7 @@ router.post("/signup", async (req, res) => {
     await user.save();
     // set the session as logged in
     req.session.isLoggedIn = true;
-    req.session.userId = user._id
+    req.session.user = user
     // return the user
     return res.status(201).json(user)
     //TODO: ADD ERROR HERE
@@ -33,11 +33,17 @@ router.post("/login", async (req, res) => {
         email,
         password
     });
+    if (user) {
     // set the session to logged in
     req.session.isLoggedIn = true;
     req.session.user = user._id
     // return the user for the client
     return res.json(user)
+    } else {
+        return res.status(403).json({error: {
+            message: "Email or password was incorrect"
+        }})
+    }
 })
 
 router.get("/logout", (req, res) => {
