@@ -14,7 +14,7 @@ function Header(props) {
                 </Nav>
                 <Nav>
 
-                    {props.loggedIn ?
+                    {props.isLoggedIn ?
                         <>
                             <p>{props.user.username}</p>
                             <Nav.Link>Logout</Nav.Link>

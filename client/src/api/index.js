@@ -3,17 +3,23 @@ const BASE_URL="/api"
 
 /**
  * Makes a call to the backend API
- * @param {String} method 
- * @param {String} path 
+ * @param {string} HTTP get method 
+ * @param {string} path from the base url 
+ * @param {Object} data
+ * @returns {{isLoggedIn: boolean, user: {email: string, username: string, _id: string}}} data to send
  */
-async function apiCall(method, path, data) {
-    try {
-        let request = await axios[method](BASE_URL + path, data)
-
-        return request.data
-    } catch (error) {
-        throw error
-    }
+function apiCall(method, path, data={}) {
+  return new Promise((resolve, reject) => {
+    return axios[method.toLowerCase()](BASE_URL + path, data)
+      .then(res => {
+        return resolve(res.data);
+      })
+      .catch(err => {
+        return reject(err.response.error);
+      });
+  });
 }
+
+
 
 export default apiCall

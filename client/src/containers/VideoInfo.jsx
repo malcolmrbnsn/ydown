@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoPlayer from '../components/VideoPlayer';
-import { splitLine } from '../tools'
+import { splitLine } from '../utils'
 import Container from 'react-bootstrap/Container'
 
 function VideoInfo(props) {

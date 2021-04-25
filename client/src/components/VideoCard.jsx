@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-import {trimText} from '../tools'
+import {trimText} from '../utils'
 
 export default function VideoCard(props) {
     let {

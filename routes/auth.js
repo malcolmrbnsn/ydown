@@ -1,6 +1,11 @@
 const router = require("express").Router(),
     db = require("../models"); 
 
+// return the current user to the client
+router.get("/me", async (req, res) => {
+    return res.json(req.session)
+})
+
 router.post("/signup", async (req, res) => {
     // get fields from the request body
     const {username, email, password } = req.body;

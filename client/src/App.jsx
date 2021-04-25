@@ -7,18 +7,19 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Home from "./containers/Home"
-import Auth from './containers/Auth';
+import LoginForm from './containers/LoginForm';
+import SignupForm from './containers/SignupForm';
+import VideoInfo from './containers/VideoInfo';
 
 import Header from './components/Header'
-import apiCall from './api';
 import Message from './components/Message';
-import VideoInfo from './containers/VideoInfo';
+import apiCall from './api';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: true,
+            loggedIn: false,
             user: {},
             message: {
                 text: "",
@@ -32,7 +33,7 @@ class App extends React.Component {
         this.deleteVideo = this.deleteVideo.bind(this)
         this.showAlert = this.showAlert.bind(this)
         this.dismissAlert = this.dismissAlert.bind(this)
-        this.handleAuthSubmit = this.handleAuthSubmit.bind(this)
+        this.updateAuth = this.updateAuth.bind(this)
     }
 
     newVideo(url) {
@@ -71,10 +72,11 @@ class App extends React.Component {
         })
     }
 
-    handleAuthSubmit(user) {
-        apiCall("post", "/auth/signup", user)
-            .then(() => console.log(1))
-            .catch(error => console.log(error))
+    updateAuth(user) {
+        this.setState({
+            user,
+            isLoggedIn: true
+        })
 
     }
 
@@ -93,13 +95,15 @@ class App extends React.Component {
         return (
             <Router>
                 <Header {...this.state} />
-                <Message dismissAlert {...this.state.message}/>
+                <Message dismissAlert {...this.state.message} />
                 {/* Looks through each route and renders the first matching one */}
                 <Switch>
-                    <Route path="/videos/:id" render={(props) => <VideoInfo {...this.state} {...props}></VideoInfo>}/>
-                    <Route path="/login" render={(props) => <Auth authType="Login" handleAuthSubmit={this.handleAuthSubmit} {...props}></Auth>} />
-                    <Route path="/signup" render={(props) => <Auth authType="Signup" handleAuthSubmit={this.handleAuthSubmit} {...props}></Auth>} />
-                    <Route exact path="/" render={(props) => <Home {...this.state} newVideo={this.newVideo} deleteVideo={this.deleteVideo} {...props}/>} />
+                    <Route path="/videos/:id" render={(props) => this.state.isLoggedIn ? <VideoInfo {...this.state} {...props} /> : props.history.push("/login")} />
+                    <Route path="/login" render={(props) => <LoginForm updateAuth={this.updateAuth} {...props}></LoginForm>} />
+                    <Route path="/signup" render={(props) => <SignupForm updateAuth={this.updateAuth} {...props}></SignupForm>} />
+                    <Route exact path="/" render={(props) => this.state.isLoggedIn ? 
+                    <Home {...this.state} newVideo={this.newVideo} deleteVideo={this.deleteVideo} {...props} /> :
+                        props.history.push("/login") } />
                 </Switch>
             </Router>
         );

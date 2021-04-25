@@ -10,7 +10,7 @@ function Home(props) {
         <div>
             <Container fluid>
                 {
-                    props.loggedIn && <VideoForm newVideo={props.newVideo} />
+                    props.isLoggedIn && <VideoForm newVideo={props.newVideo} />
                 }
 
                 {props.isFetching ?
