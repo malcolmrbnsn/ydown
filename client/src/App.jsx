@@ -19,7 +19,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false,
+            isLoggedIn: true,
             user: {},
             message: {
                 text: "fuck martin",
@@ -29,23 +29,16 @@ class App extends React.Component {
             isFetching: true,
             videos: []
         }
-        this.newVideo = this.newVideo.bind(this)
+        this.addVideo = this.addVideo.bind(this)
         this.deleteVideo = this.deleteVideo.bind(this)
         this.showAlert = this.showAlert.bind(this)
         this.dismissAlert = this.dismissAlert.bind(this)
         this.updateAuth = this.updateAuth.bind(this)
     }
 
-    newVideo(url) {
-        // strip url to get video id
-        let id = new URL(url).searchParams.get("v")
-        // call api
-        apiCall("post", "/videos/" + id)
-            .then(video => {
-                // update state
-                let videos = this.state.videos.concat(video)
-                this.setState({ videos })
-            })
+    addVideo(video) {
+        let videos = this.state.videos.concat(video)
+        this.setState({ videos })
     }
 
     deleteVideo(id) {
@@ -116,7 +109,7 @@ class App extends React.Component {
                     <Route path="/login" render={(props) => <LoginForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></LoginForm>} />
                     <Route path="/signup" render={(props) => <SignupForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></SignupForm>} />
                     <Route exact path="/" render={(props) => this.state.isLoggedIn ?
-                        <Home {...this.state} newVideo={this.newVideo} deleteVideo={this.deleteVideo} {...props} /> :
+                        <Home {...this.state} addVideo={this.addVideo} deleteVideo={this.deleteVideo} {...props} /> :
                         props.history.push("/login")} />
                 </Switch>
             </Router>

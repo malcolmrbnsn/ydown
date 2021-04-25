@@ -8,11 +8,10 @@ import CardColumns from 'react-bootstrap/CardColumns'
 function Home(props) {
     return (
         <div>
-            <Container fluid>
                 {
-                    props.isLoggedIn && <VideoForm newVideo={props.newVideo} />
+                    props.isLoggedIn && <VideoForm addVideo={props.addVideo} />
                 }
-
+            <Container fluid>
                 {props.isFetching ?
                     <h1>Loading...</h1> :
                     <CardColumns>

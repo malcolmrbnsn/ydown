@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 
+import apiCall from '../api'
+
 export default class VideoForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: ""
+            url: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -13,13 +15,18 @@ export default class VideoForm extends Component {
 
     handleChange(e) {
         this.setState({
-            inputValue: e.target.value
+            url: e.target.value
         })
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.newVideo(this.state.inputValue)
+        // strip url to get video id
+        let id = new URL(this.state.url).searchParams.get("v")
+        // call api
+        apiCall("post", "/videos/" + id)
+            .then(video => this.props.newVideo(video))
+            .catch(error => this.props.showAlert(error.message))
     }
 
     render() {
