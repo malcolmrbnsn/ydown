@@ -109,7 +109,7 @@ class App extends React.Component {
                     <Route path="/login" render={(props) => <LoginForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></LoginForm>} />
                     <Route path="/signup" render={(props) => <SignupForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></SignupForm>} />
                     <Route exact path="/" render={(props) => this.state.isLoggedIn ?
-                        <Home {...this.state} addVideo={this.addVideo} deleteVideo={this.deleteVideo} {...props} /> :
+                        <Home {...this.state} addVideo={this.addVideo} deleteVideo={this.deleteVideo} showAlert={this.showAlert} {...props} /> :
                         props.history.push("/login")} />
                 </Switch>
             </Router>

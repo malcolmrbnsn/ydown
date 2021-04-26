@@ -10,7 +10,7 @@ require("dotenv").config();
 //  App setup
 // ------------
 // log HTTP requests
-app.use(morgan("combined"));
+app.use(morgan("common"));
 
 // allow cross-origin requests
 app.use(cors());

@@ -3,6 +3,7 @@ const schedule = require("node-schedule"),
     fs = require("fs"),
     path = require("path"),
     db = require("./models")
+require("dotenv").config();
 
 async function downloadVideos() {
     // get list of videos to download
@@ -24,5 +25,6 @@ async function downloadVideos() {
 }
 
 // set the schedule to run at 1AM everyday
-const job = schedule.scheduleJob('0 1 * * *', downloadVideos)
+// const job = schedule.scheduleJob('0 1 * * *', downloadVideos)
+const job = schedule.scheduleJob('* * * * *', downloadVideos)
 console.log("DOWNLOADER: ready")

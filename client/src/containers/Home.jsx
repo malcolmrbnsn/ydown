@@ -9,7 +9,7 @@ function Home(props) {
     return (
         <div>
                 {
-                    props.isLoggedIn && <VideoForm addVideo={props.addVideo} />
+                    props.isLoggedIn && <VideoForm showAlert={props.showAlert} addVideo={props.addVideo} />
                 }
             <Container fluid>
                 {props.isFetching ?

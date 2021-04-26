@@ -25,7 +25,10 @@ export default class VideoForm extends Component {
         let id = new URL(this.state.url).searchParams.get("v")
         // call api
         apiCall("post", "/videos/" + id)
-            .then(video => this.props.newVideo(video))
+            .then(video => {
+                this.setState({url: ""})
+                this.props.addVideo(video)
+            })
             .catch(error => this.props.showAlert(error.message))
     }
 
@@ -34,7 +37,7 @@ export default class VideoForm extends Component {
             <div>
                 <Form onSubmit={this.handleSubmit}>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter a video URL to download..." value={this.state.inputValue} onChange={this.handleChange} />
+                        <input type="text" class="form-control" placeholder="Enter a video URL to download..." value={this.state.url} onChange={this.handleChange} />
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </div>
