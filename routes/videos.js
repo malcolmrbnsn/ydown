@@ -7,16 +7,9 @@ const {checkLogin} = require("../middleware/auth")
 
 router.get("/", async (req, res) => {
   // get all videos from the database
-  let videos = await db.Video.find().sort({date: 'ascending'}).exec();
+  let videos = await db.Video.find().sort({date: 'ascending'}).lean().exec();
   // return to user
-  return res.status(200).json(videos);
-})
-
-router.get("/:id", async (req, res) => {
-  // find one from the database
-  let video = await db.Video.findOne({ videoId: req.params.id })
-  // return to the user
-  return res.status(200).json(video)
+  return res.render("videos/library", {videos, title: "Library"})
 })
 
 router.post("/:id", checkLogin, async (req, res) => {
@@ -36,10 +29,9 @@ router.post("/:id", checkLogin, async (req, res) => {
     // save to database
     await video.save()
     // return success to user with the video
-    return res.status(201).json(video)
+    return res.redirect("/videos")
   } catch (error) {
     // return the error to the user
-    return res.status(500).send(error)
   }
 })
 
@@ -55,13 +47,10 @@ router.delete("/:id", checkLogin, async (req, res) => {
       fs.unlinkSync(path.join(__dirname, "../", "public", "video", req.params.id + ".mp4"))
     }
     // return the success status with message
-    return res.status(204)
+    return res.redirect("/videos")
 
   } catch (error) {
-    // log the error to console
-    console.log(error)
-    // return a server error with the error
-    return res.status(500).json({error});
+
   }
 })
 

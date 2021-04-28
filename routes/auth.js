@@ -38,9 +38,7 @@ router.post("/login", async (req, res) => {
     // return the user for the client
     return res.json(user)
     } else {
-        return res.status(403).json({error: {
-            message: "Email or password was incorrect"
-        }})
+        return res.redirect("/videos")
     }
 })
 
