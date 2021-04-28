@@ -1,17 +1,13 @@
 const router = require("express").Router(),
     db = require("../models"); 
 
-// return the current user to the client
-router.get("/me", async (req, res) => {
-    return res.json(req.session)
-})
+router.get("/signup", (req, res) => res.render("auth/signup", {title: "Signup"}))
 
 router.post("/signup", async (req, res) => {
     // get fields from the request body
     const {username, email, password } = req.body;
     // create the new user
     const user = new db.User({
-        username,
         email, 
         password
     });
@@ -21,9 +17,11 @@ router.post("/signup", async (req, res) => {
     req.session.isLoggedIn = true;
     req.session.user = user
     // return the user
-    return res.status(201).json(user)
+    return res.redirect("/library")
     //TODO: ADD ERROR HERE
 })
+
+router.get("/login", (req, res) => res.render("auth/login", {title: "Login"}))
 
 router.post("/login", async (req, res) => {
     // get email and password from request body
@@ -50,11 +48,8 @@ router.get("/logout", (req, res) => {
     // remove the logged in state from session
     req.session.isLoggedIn = false;
     req.session.user = ""
-    // return success to user
-    res.status(200).json({
-        message: "Logged out",
-        type: "success"
-    })
+    // return user to home page
+    res.redirect("/")
 })
 
 module.exports = router;

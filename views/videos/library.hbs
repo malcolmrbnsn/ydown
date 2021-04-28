@@ -1,0 +1,23 @@
+<div class="container">
+<form action="/" method="POST">
+    <div class="mb-3">
+        <input required placeholder="Video URL" type="url" class="form-control form-control-lg" id="url" name="url">
+        <div class="invalid-feedback">
+            Please enter a valid URL.
+        </div>
+</form>
+</div>
+
+<div class="container">
+{{#each videos}}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <h6 class="card-subtitle">{{this.author}}</h6>
+        <p>{{this.description}}</p>
+        <div class="card-link">{{#if this.downloaded}}Downloaded{{else}}No downloaded!!!!{{/if}}</div>
+    </div>
+</div>
+{{this}}
+{{/each}}
+</div>
