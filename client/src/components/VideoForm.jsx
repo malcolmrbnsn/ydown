@@ -21,6 +21,9 @@ export default class VideoForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        let {url} = this.state;
+        // check if url is valid
+        if (url.substring(0,32) === "https://www.youtube.com/watch?v=") {
         // strip url to get video id
         let id = new URL(this.state.url).searchParams.get("v")
         // call api
@@ -30,16 +33,17 @@ export default class VideoForm extends Component {
                 this.props.addVideo(video)
             })
             .catch(error => this.props.showAlert(error.message))
+        }
     }
 
     render() {
         return (
             <div>
                 <Form onSubmit={this.handleSubmit}>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter a video URL to download..." value={this.state.url} onChange={this.handleChange} />
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                    <div className="input-group">
+                        <input type="text" className="form-control" placeholder="Enter a video URL to download..." value={this.state.url} onChange={this.handleChange} />
+                        <div className="input-group-append">
+                            <button className="btn btn-primary" type="submit">Submit</button>
                         </div>
                     </div>
                 </Form>

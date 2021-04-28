@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\" \"npm run downloader\"",
+    "start": "NODE_ENV=production concurrently \"npm run downloader\" \"npm run server\"",
+    "build": "cd client/ && npm install && npm run build",
+    "watch:dev": "concurrently \"npm run server\" \"npm run client\" \"npm run downloader\"",
     "server": "nodemon index.js",
     "client": "node start-client.js",
     "downloader": "node downloader.js"

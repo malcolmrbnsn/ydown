@@ -28,6 +28,7 @@ export default class LoginForm extends Component {
         apiCall("post", "/auth/login", this.state)
         .then(data => {
             this.props.updateAuth(data.user, true)
+            this.props.history.push("/")
         })
         .catch(error => {
             this.props.showAlert(error.message)
