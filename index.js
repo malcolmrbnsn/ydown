@@ -37,7 +37,9 @@ app.engine('hbs', exphbs({
   helpers: {
     displayDate: val => moment(val).format("MMM Do YY"),
     count: val => val.length,
-    idMatches: (val1, val2) => val1.equals(val2)
+    idMatches: (val1, val2) => val1.equals(val2),
+    trimDescription: (text, len) => text.substring(0, len) + "...",
+    splitLines: ((text) => text.split('\n'))
   }
 }));
 app.set('view engine', 'hbs')

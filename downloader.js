@@ -21,17 +21,18 @@ async function downloadVideos() {
 
             console.log("downloading video: " + id)
             ytdl(id)
-                .pipe(fs.createWriteStream(path.join(__dirname, "public", "video", filename))) // pipe the video data to the file path
+                .pipe(fs.createWriteStream(path.join(__dirname, "public", "video", videoFilename))) // pipe the video data to the file path
                 .on("close", async () => {
                     // log to console success
                     console.log("downloaded video");
 
-                    //generate thumbnail
-                    await genThumbnail('./public/video/' + filename, 'public/video/' + thumbFilename, "1280x720", { path: ffmpeg.path });
+                    // generate thumbnail
+                    await genThumbnail(path.join(__dirname, "public", "video", videoFilename), path.join(__dirname, "public", "thumbnail", thumbFilename), "1280x720", { path: ffmpeg.path });
                     console.log("generated thumbnail")
 
                     // update downloaded status in the database
                     await db.Video.findOneAndUpdate({ videoId: id }, { downloaded: true, hasThumbnail: true });
+                    console.log("database updated")
                 })
         } catch (error) {
             console.log("downloader error: " + error)
@@ -41,5 +42,6 @@ async function downloadVideos() {
 
 // set the schedule to run at 1AM everyday
 // const job = schedule.scheduleJob('0 1 * * *', downloadVideos)
-const job = schedule.scheduleJob('* * * * *', downloadVideos)
+// const job = schedule.scheduleJob('* * * * *', downloadVideos)
+downloadVideos()
 console.log("DOWNLOADER: ready")
