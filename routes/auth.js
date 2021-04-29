@@ -12,6 +12,13 @@ router.post("/signup", async (req, res) => {
             return res.redirect("/")
         }
 
+        let existingUser = await db.User.findOne({email});
+
+        if (existingUser) {
+            req.flash("error", "This email is already signed up.")
+            return res.redirect("/signup")
+        }
+
         // create the new user
         const user = new db.User({
             email,
@@ -39,7 +46,6 @@ router.get("/login", (req, res) => res.render("auth/login", { title: "Login" }))
 
 router.post("/login", async (req, res) => {
     try {
-
         // get email and password from request body
         const { email, password } = req.body;
 

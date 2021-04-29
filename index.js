@@ -21,16 +21,18 @@ app.use(methodOverride('_method'))
 
 // use cookie sessions
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET }));
-app.use(flash())
 
-app.use(function(req, res, next){
+// use flash for error and success messages
+app.use(flash())
+app.use(function (req, res, next) {
+  // pass the session and flash messages to handlebars
   res.locals.session = req.session;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
-  next();
+  return next();
 });
 
-// Enable HTML templating
+// Enable HTML templating with handlebars
 app.engine('hbs', exphbs({
   layoutsDir: __dirname + '/views/layouts',
   extname: 'hbs',
@@ -48,12 +50,12 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'));
 
 // import routes
-const VideosRoutes = require("./routes/videos"),
+const indexRoutes = require("./routes"),
+  VideosRoutes = require("./routes/videos"),
   AuthRoutes = require("./routes/auth");
 
-app.get("/", (req, res) => res.redirect("/login"))
-
 // use routes
+app.use("/", indexRoutes);
 app.use("/", AuthRoutes);
 app.use("/videos", VideosRoutes);
 

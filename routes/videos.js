@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.post("/:id/watched", async (req, res) => {
+router.get("/:id/watched", async (req, res) => {
   try {
     // get the video from the database
     let video = await db.Video.findById(req.params.id);
@@ -69,7 +69,7 @@ router.post("/:id/watched", async (req, res) => {
     console.log(error)
     // return the error to the use
     req.flash("error", "An error occured")
-    res.redirect("/videos")
+    return res.redirect("/videos")
   }
 })
 

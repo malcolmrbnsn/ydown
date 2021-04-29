@@ -5,20 +5,27 @@
         <div class="col">
             <div class="card">
                 <a class="card-img-top" href="/videos/{{this._id}}">
-                    <img src="/thumbnail/{{this.videoId}}.png" class="card-img-top" alt="">
+                    <img src="/thumbnail/{{this.videoId}}.png" class="card-img-top"
+                        onerror="this.onerror=null;this.src='/thumbnail/cover.png';" />
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">{{this.title}}</h5>
                     <h6 class="card-subtitle">{{#if this.downloaded}}{{#if this.watched}}Watched
                         {{else}}Downloaded{{/if}}
                         {{else}}Download Scheduled{{/if}}</h6>
-                    <a href="/videos/{{this._id}}" class="btn btn-primary">More Info</a>
+                    <form class="btn-group" action="/videos/{{this._id}}?method=DELETE" method="POST">
+                    {{#if this.downloaded}}
+                        {{#if this.watched}}
+                        <a href="/videos/{{this._id}}/watched" class="btn btn-success" type="button">Mark watched</a>
+                        {{else}}
+                        <a href="/videos/{{this._id}}/watched" class="btn btn-success" type="button">Mark unwatched</a>
+                        {{/if}}
+                        {{/if}}
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
 </div>
-
-
-{{!-- Modals --}}
