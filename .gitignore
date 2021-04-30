@@ -1,6 +1,7 @@
 .env
 
 video/
+thumbnail/
 node_modules/
 /.pnp
 .pnp.js

@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Library</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {{#each videos}}
+        <div class="col">
+            <div class="card">
+                <a class="card-img-top" href="/videos/{{this._id}}">
+                    <img src="/thumbnail/{{this.videoId}}.png" class="card-img-top"
+                        onerror="this.onerror=null;this.src='/thumbnail/cover.png';" />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <h6 class="card-subtitle">{{#if this.downloaded}}{{#if this.watched}}Watched
+                        {{else}}Downloaded{{/if}}
+                        {{else}}Download Scheduled{{/if}}</h6>
+                    <form class="btn-group" action="/videos/{{this._id}}?method=DELETE" method="POST">
+                        {{#if this.downloaded}}
+                        <a class="btn btn-success" href="/videos/{{this._id}}">Watch Now</a>
+                        {{#if this.watched}}
+                        <a href="/videos/{{this._id}}/watched" class="btn btn-primary" type="button">Mark watched</a>
+                        {{else}}
+                        <a href="/videos/{{this._id}}/watched" class="btn btn-primary" type="button">Mark unwatched</a>
+                        {{/if}}
+                        {{/if}}
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
