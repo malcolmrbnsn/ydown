@@ -3,29 +3,26 @@ const ytdl = require('ytdl-core'),
   fs = require("fs"),
   path = require('path'),
   db = require("../models")
-const {checkAuth} = require("../middleware/auth")
+const {checkLogin} = require("../middleware/auth")
 
 router.get("/", async (req, res) => {
   // get all videos from the database
   let videos = await db.Video.find().sort({date: 'ascending'}).exec();
-
   // return to user
   return res.status(200).json(videos);
 })
 
-router.get("/:id", checkAuth, async (req, res) => {
-  // find the video from the database
+router.get("/:id", async (req, res) => {
+  // find one from the database
   let video = await db.Video.findOne({ videoId: req.params.id })
-
   // return to the user
   return res.status(200).json(video)
 })
 
-router.post("/:id", checkAuth, async (req, res) => {
+router.post("/:id", checkLogin, async (req, res) => {
   try {
     // get the video information from youtube
     let info = await ytdl.getInfo(req.params.id)
-
     // save information into a new database entry
     let video = new db.Video({
       title: info.videoDetails.title,
@@ -36,10 +33,8 @@ router.post("/:id", checkAuth, async (req, res) => {
       videoId: req.params.id,
       downloaded: false
     })
-
     // save to database
     await video.save()
-
     // return success to user with the video
     return res.status(201).json(video)
   } catch (error) {
@@ -48,14 +43,12 @@ router.post("/:id", checkAuth, async (req, res) => {
   }
 })
 
-router.delete("/:id", checkAuth, async (req, res) => {
+router.delete("/:id", checkLogin, async (req, res) => {
   try {
     // find the video in the database
     let video = await db.Video.findOne({ videoId: req.params.id });
-
     // delete the video from database
     await db.Video.findOneAndDelete({ videoId: req.params.id });
-
     // if video was downloaded
     if (video.downloaded) {
       // delete the video from disk
@@ -67,7 +60,6 @@ router.delete("/:id", checkAuth, async (req, res) => {
   } catch (error) {
     // log the error to console
     console.log(error)
-
     // return a server error with the error
     return res.status(500).json({error});
   }

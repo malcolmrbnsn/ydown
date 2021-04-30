@@ -19,10 +19,10 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn: false,
+            isLoggedIn: true,
             user: {},
             message: {
-                text: "martin",
+                text: "fuck martin",
                 isVisable: false,
                 type: "success"
             },
@@ -77,26 +77,17 @@ class App extends React.Component {
     /**
      * Updates the application state to sign in or out
      * @param {Object} user data
-     * @param {Boolean} if the user is logged in
+     * @param {boolean} if the user is logged in
      */
-    updateAuth(user = {}, isLoggedIn = false) {
+    updateAuth(user, isLoggedIn) {
         this.setState({
             user,
-            isLoggedIn
+            isLoggedIn: true
         })
 
     }
 
     componentDidMount() {
-        apiCall("get", "/auth/me")
-            .then(auth => {
-                this.setState({
-                    isLoggedIn: auth.isLoggedIn,
-                    user: auth.user
-                })
-            })
-            .catch(error => this.setState({ message: { text: "An error occured. Please check your internet connection", isShowing: true } }))
-
         apiCall("get", "/videos/")
             .then(videos => {
                 this.setState({
@@ -110,12 +101,9 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Header updateAuth={this.updateAuth} {...this.state} />
+                <Header {...this.state} />
                 <Message dismissAlert {...this.state.message} />
                 {/* Looks through each route and renders the first matching one */}
-                {
-                    this.state.isFetching ? <div></div> :
-
                 <Switch>
                     <Route path="/videos/:id" render={(props) => this.state.isLoggedIn ? <VideoInfo {...this.state} {...props} /> : props.history.push("/login")} />
                     <Route path="/login" render={(props) => <LoginForm updateAuth={this.updateAuth} showAlert={this.showAlert} {...props}></LoginForm>} />
@@ -124,7 +112,6 @@ class App extends React.Component {
                         <Home {...this.state} addVideo={this.addVideo} deleteVideo={this.deleteVideo} showAlert={this.showAlert} {...props} /> :
                         props.history.push("/login")} />
                 </Switch>
-    }
             </Router>
         );
     }

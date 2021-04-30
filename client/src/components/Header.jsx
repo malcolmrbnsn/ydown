@@ -2,15 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
-import apiCall from '../api'
 
 function Header(props) {
-    const logout = () => {
-        apiCall("get", "/auth/logout")
-            .then(() => {
-                props.updateAuth({}, false);
-            })
-    }
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Navbar.Brand as={Link} to="/">yDown</Navbar.Brand>
@@ -20,10 +13,11 @@ function Header(props) {
                     <Nav.Link as={Link} to="/">Library</Nav.Link>
                 </Nav>
                 <Nav>
-                    {props.isLoggedIn ? 
+
+                    {props.isLoggedIn ?
                         <>
                             <p>{props.user.username}</p>
-                            <a href="#" className="nav nav-link" onClick={logout}>Log Out</a>
+                            <Nav.Link>Logout</Nav.Link>
                         </>
                         :
                         <>
