@@ -10,7 +10,6 @@ require("dotenv").config();
 async function downloadVideos() {
   // get list of videos to download
   let videos = await db.Video.find({ downloaded: false });
-  console.log(videos);
   // for each video
   videos.forEach(async (video) => {
     try {
@@ -28,7 +27,7 @@ async function downloadVideos() {
         ) // pipe the video data to the file path
         .on("close", async () => {
           // log to console success
-          console.log("downloaded video");
+          console.log("downloaded video " + id);
 
           // generate thumbnail
           await genThumbnail(
@@ -37,7 +36,7 @@ async function downloadVideos() {
             "1280x720",
             { path: ffmpeg.path }
           );
-          console.log("generated thumbnail");
+          console.log("generated thumbnail " + id);
 
           // update downloaded status in the database
           await db.Video.findOneAndUpdate(
@@ -52,6 +51,7 @@ async function downloadVideos() {
   });
 }
 
+downloadVideos();
 // set the schedule to run at 1AM everyday
 schedule.scheduleJob("0 1 * * *", downloadVideos);
 console.log("DOWNLOADER: ready");

@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run server\" \"npm run downloader\"",
     "server": "nodemon index.js",
     "downloader": "node downloader.js",
-    "lint": "npm"
+    "lint": "prettier --write **/*.js;eslint . --fix --ext .js"
   },
   "keywords": [],
   "author": "",
