@@ -14,13 +14,13 @@
                     <h6 class="card-subtitle">{{#if this.downloaded}}{{#if this.watched}}Watched
                         {{else}}Downloaded{{/if}}
                         {{else}}Download Scheduled{{/if}}</h6>
-                    <form class="btn-group" action="/videos/{{this._id}}?method=DELETE" method="POST">
+                    <form class="btn-group" action="/videos/{{this._id}}?_method=DELETE" method="POST">
                         {{#if this.downloaded}}
                         <a class="btn btn-success" href="/videos/{{this._id}}">Watch Now</a>
                         {{#if this.watched}}
-                        <a href="/videos/{{this._id}}/watched" class="btn btn-primary" type="button">Mark watched</a>
-                        {{else}}
                         <a href="/videos/{{this._id}}/watched" class="btn btn-primary" type="button">Mark unwatched</a>
+                        {{else}}
+                        <a href="/videos/{{this._id}}/watched" class="btn btn-primary" type="button">Mark watched</a>
                         {{/if}}
                         {{/if}}
                         <button class="btn btn-danger" type="submit">Delete</button>

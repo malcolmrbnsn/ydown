@@ -92,11 +92,9 @@ router.get("/:id", async (req, res) => {
 
 router.delete("/:id", checkLogin, async (req, res) => {
   try {
+    console.log(req.params.id)
     // find the video in the database
     let video = await Video.findOne({ videoId: req.params.id });
-
-    // delete the video from database
-    await Video.findOneAndDelete({ videoId: req.params.id });
 
     // if video was downloaded
     if (video.downloaded) {
@@ -105,6 +103,9 @@ router.delete("/:id", checkLogin, async (req, res) => {
         path.join(__dirname, "../", "public", "videos", req.params.id + ".mp4")
       );
     }
+
+    // Delete the video
+    await video.remove();
 
     // return the success status with message
     return res.redirect("/videos");

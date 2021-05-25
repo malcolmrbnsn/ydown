@@ -30,9 +30,11 @@ router.post("/signup", async (req, res) => {
     // save to database
     await user.save();
 
-    // set the session as logged in
+    // set the session as logged in and populate the user object
     req.session.isLoggedIn = true;
     req.session.user = user;
+
+    // note in the session that the user has logged in before
     req.session.isUser = true;
 
     // return the user
@@ -68,6 +70,9 @@ router.post("/login", async (req, res) => {
     // set the session to logged in and populate the user info
     req.session.isLoggedIn = true;
     req.session.user = user._id;
+
+    // note in the session that the user has logged in before
+    req.session.isUser = true;
 
     req.flash("success", "Logged In");
     return res.redirect("/videos");

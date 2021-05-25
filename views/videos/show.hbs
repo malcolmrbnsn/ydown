@@ -2,7 +2,7 @@
     <video width="100%" controls>
         <source src="/video/{{video.videoId}}.mp4" />
     </video>
-    <h1>{{video.title}} <form action="/videos/{{video._id}}/watched" method="post"><button class="btn btn-success">Mark watched</button></form></h1>
+    <h1>{{video.title}} <a href="/videos/{{video._id}}/watched" class="btn btn-success">Mark watched</a></h1>
     <h2>{{video.channelauthor}}</h2>
     <p>{{splitLines video.description}}</p>
 </div>
