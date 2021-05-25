@@ -92,7 +92,6 @@ router.get("/:id", async (req, res) => {
   }
 })
 
-
 router.delete("/:id", checkLogin, async (req, res) => {
   try {
     // find the video in the database

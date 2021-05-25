@@ -31,6 +31,7 @@ router.post("/signup", async (req, res) => {
         // set the session as logged in
         req.session.isLoggedIn = true;
         req.session.user = user
+        req.session.isUser = true;
 
         // return the user
         req.flash("success", "Signed up")
