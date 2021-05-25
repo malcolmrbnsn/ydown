@@ -1,5 +1,6 @@
 <div class="container">
     <h1>Library</h1>
+    {{#if videos}}
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {{#each videos}}
         <div class="col">
@@ -29,4 +30,7 @@
         </div>
         {{/each}}
     </div>
+    {{else}}
+    <p class="text-center">No videos found. Add one in the menu bar</p>
+    {{/if}}
 </div>
