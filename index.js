@@ -44,6 +44,8 @@ app.engine(
       idMatches: (val1, val2) => val1.equals(val2),
       trimDescription: (text, len) => text.substring(0, len) + "...",
       splitLines: (text) => text.split("\n"),
+      ifEquals: (val1, val2, options) =>
+        val1 === val2 ? options.fn(this) : options.inverse(this),
     },
   })
 );

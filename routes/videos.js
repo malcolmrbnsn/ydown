@@ -92,15 +92,20 @@ router.get("/:id", async (req, res) => {
 
 router.delete("/:id", checkLogin, async (req, res) => {
   try {
-    console.log(req.params.id)
     // find the video in the database
-    let video = await Video.findOne({ videoId: req.params.id });
+    let video = await Video.findById(req.params.id);
+
+    if (!video) {
+      // return the error to the user
+      req.flash("error", "No video was found");
+      return res.redirect("/videos");
+    }
 
     // if video was downloaded
     if (video.downloaded) {
       // delete the video from disk
       fs.unlinkSync(
-        path.join(__dirname, "../", "public", "videos", req.params.id + ".mp4")
+        path.join(__dirname, "../", "public", "video", video.videoId + ".mp4")
       );
     }
 
@@ -108,12 +113,13 @@ router.delete("/:id", checkLogin, async (req, res) => {
     await video.remove();
 
     // return the success status with message
+    req.flash('success', 'Video deleted');
     return res.redirect("/videos");
   } catch (error) {
     console.log(error);
-    // return the error to the use
+    // return the error to the user
     req.flash("error", "An error occured");
-    res.redirect("/videos");
+    return res.redirect("/videos");
   }
 });
 
