@@ -1,5 +1,12 @@
 <div class="container">
-    <h1>Library</h1>
+    <div class="d-flex bd-highlight mb-3">
+        <h1 class="me-auto p-2 flex-grow-1 bd-highlight">Library</h1>
+        <form class="input-group p-2 bd-highlight align-self-center" style="width: auto;" action="/videos" method="POST">
+    {{!-- <form class="" action="/videos" method="POST" name="addVideo"></form> --}}
+            <input class="form-control" type="url" name="url" placeholder="Video URL" >
+            <button class="btn btn-success align-self-center" type="submit" >Add Video</button>
+        </form>
+    </div>
     {{#if videos}}
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {{#each videos}}
@@ -31,6 +38,6 @@
         {{/each}}
     </div>
     {{else}}
-    <p class="text-center">No videos found. Add one in the menu bar</p>
+    <p class="text-center">No videos found.</p>
     {{/if}}
 </div>

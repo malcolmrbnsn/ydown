@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run downloader\"",
-    "server": "nodemon index.js",
-    "downloader": "node downloader.js",
+    "start": "node index.js",
     "lint": "prettier --write **/*.js;eslint . --fix --ext .js"
   },
   "keywords": [],
@@ -35,7 +33,7 @@
     "nodemon": "^2.0.5",
     "prettier": "^2.3.0",
     "simple-thumbnail": "^1.6.5",
-    "ytdl-core": "^4.5.0"
+    "ytdl-core": "^4.8.3"
   },
   "engines": {
     "node": ">=10.0.0"

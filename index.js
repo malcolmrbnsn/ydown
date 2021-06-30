@@ -57,11 +57,13 @@ app.use(express.static("public"));
 // import routes
 const indexRoutes = require("./routes"),
   VideosRoutes = require("./routes/videos"),
-  AuthRoutes = require("./routes/auth");
+  AuthRoutes = require("./routes/auth"),
+  DownloaderRoutes = require("./routes/downloader");
 
 // use routes
 app.use("/", indexRoutes);
 app.use("/", AuthRoutes);
+app.use("/", DownloaderRoutes);
 app.use("/videos", VideosRoutes);
 
 const PORT = process.env.PORT;

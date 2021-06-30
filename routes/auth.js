@@ -1,3 +1,6 @@
+const { request } = require("express");
+const { exists } = require("../models/video");
+
 const router = require("express").Router(),
   db = require("../models");
 
@@ -43,7 +46,7 @@ router.post("/signup", async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "An error occured.");
-    return res.redirect("/login");
+    return res.redirect("/signup");
   }
 });
 
@@ -64,6 +67,7 @@ router.post("/login", async (req, res) => {
 
     // if no user was found send user back to login form
     if (!user) {
+      req.flash("error", "Username or Password was incorrect");
       return res.redirect("/login");
     }
 
@@ -82,6 +86,47 @@ router.post("/login", async (req, res) => {
     return res.redirect("/login");
   }
 });
+
+router.post("/setpassword", async (req, res) => {
+  try {
+    // get form data from request
+    { oldPassword, newPassword, newPasswordRepeat } = req.body;
+
+    // if any field is missing return an error
+    if (!oldPassword || !newPassword || !newPasswordRepeat) {
+      req.flash("error", "Check you have filled in all fields.");
+      return res.redirect("/options");
+    }
+
+    // find the user from the session
+    let user = await db.User.findOne(req.session.user);
+
+    // if the old password is incorrect return an error
+    if (oldPassword !== user.password) {
+      req.flash("error", "Check the old password is correct and try again.");
+      return res.redirect("/options");
+    }
+
+    // if the new passwords do not match return an error
+    if (newPassword !== newPasswordRepeat) {
+      req.flash("error", "Check the new password is the same in both boxes.");
+      return res.redirect("/options");
+    }
+
+    // update the password and save to database
+    user.password = newPassword
+    await user.save();
+
+    req.flash("success", "Password changed.");
+    return res.redirect("/options");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "An error occured.");
+    return res.redirect("/login");
+
+  }
+
+})
 
 router.get("/logout", (req, res) => {
   try {

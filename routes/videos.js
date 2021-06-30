@@ -113,7 +113,7 @@ router.delete("/:id", checkLogin, async (req, res) => {
     await video.remove();
 
     // return the success status with message
-    req.flash('success', 'Video deleted');
+    req.flash("success", "Video deleted");
     return res.redirect("/videos");
   } catch (error) {
     console.log(error);
