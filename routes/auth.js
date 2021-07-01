@@ -4,9 +4,9 @@ const { exists } = require("../models/video");
 const router = require("express").Router(),
   db = require("../models");
 
-router.get("/signup", (req, res) =>
-  res.render("auth/signup", { title: "Signup" })
-);
+router.get("/signup", (req, res) => {
+  return res.render("auth/signup", { title: "Signup" });
+});
 
 router.post("/signup", async (req, res) => {
   try {
@@ -87,10 +87,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/setpassword", async (req, res) => {
+router.post("/changepassword", async (req, res) => {
   try {
     // get form data from request
-    { oldPassword, newPassword, newPasswordRepeat } = req.body;
+    let { oldPassword, newPassword, newPasswordRepeat } = req.body;
 
     // if any field is missing return an error
     if (!oldPassword || !newPassword || !newPasswordRepeat) {
@@ -99,7 +99,7 @@ router.post("/setpassword", async (req, res) => {
     }
 
     // find the user from the session
-    let user = await db.User.findOne(req.session.user);
+    let user = await db.User.findById(req.session.user);
 
     // if the old password is incorrect return an error
     if (oldPassword !== user.password) {
@@ -122,10 +122,8 @@ router.post("/setpassword", async (req, res) => {
   } catch (error) {
     console.log(error);
     req.flash("error", "An error occured.");
-    return res.redirect("/login");
-
+    return res.redirect("/options");
   }
-
 })
 
 router.get("/logout", (req, res) => {

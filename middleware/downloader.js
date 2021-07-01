@@ -24,16 +24,15 @@ function checkFileSync(file) {
 class Downloader {
   constructor() {
     // check the file exists
-    checkFileSync("../options.json");
+    checkFileSync("/persist/options.json");
 
     // read the file, parse data from it
-    let data = fs.readFileSync("./options.json");
+    let data = fs.readFileSync("/persist/options.json");
     let options = JSON.parse(data);
 
     // set object options and start the scheduler
     this.options = options;
-    let rule = schedule.RecurrenceRule(options);
-    this.scheduler = schedule.scheduleJob(rule, this.downloadVideos.bind(this));
+    this.scheduler = schedule.scheduleJob(options, this.downloadVideos.bind(this));
     console.log("DOWNLOADER: started");
   }
 
@@ -45,11 +44,10 @@ class Downloader {
     );
 
     // reset the scheduler
-    let rule = schedule.RecurrenceRule(options);
-    this.scheduler.reschedule(rule);
+    this.scheduler.reschedule(newOptions);
 
     // save to file
-    fs.writeFileSync("./options.json", JSON.stringify(newOptions));
+    fs.writeFileSync("/persist/options.json", JSON.stringify(newOptions));
   }
 
   async downloadVideos() {
@@ -65,7 +63,7 @@ class Downloader {
           // set filenames and path
           const videoFilename = id + ".mp4";
           const thumbFilename = id + ".png";
-          const basePath = "./public/";
+          const basePath = "/persist/media/";
 
           console.log("downloading video: " + id);
           ytdl(id)

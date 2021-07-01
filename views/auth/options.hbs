@@ -18,15 +18,15 @@
     <form action="/changepassword" method="POST" class="needs-validation" novalidate>
         <div class="mb-3 row">
             <label for="oldPassword" class="form-label">Old Password</label>
-            <input type="password" class="form-control" id="oldPassword" required placeholder="">
+            <input type="password" class="form-control" name="oldPassword" id="oldPassword" required placeholder="">
         </div>
         <div class="mb-3 row">
             <label for="newPassword" class="form-label">New Password</label>
-            <input type="password" class="form-control" id="newPassword" required placeholder="">
+            <input type="password" class="form-control" id="newPassword" name="newPassword" required placeholder="">
         </div>
         <div class="mb-3 row">
             <label for="newPasswordRepeat" class="form-label">Repeat New Password</label>
-            <input type="password" class="form-control" id="newPasswordRepeat" required placeholder="">
+            <input type="password" class="form-control" id="newPasswordRepeat" name="newPasswordRepeat" required placeholder="">
         </div>
         <button type="submit" class="btn btn-primary">Change Password</button>
     </form>

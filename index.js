@@ -51,8 +51,8 @@ app.engine(
 );
 app.set("view engine", "hbs");
 
-// Static routes
-app.use(express.static("public"));
+// Static media
+app.use(express.static("/persist/media"))
 
 // import routes
 const indexRoutes = require("./routes"),
@@ -66,5 +66,5 @@ app.use("/", AuthRoutes);
 app.use("/", DownloaderRoutes);
 app.use("/videos", VideosRoutes);
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`SERVER: listening to port ${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`SERVER: listening on port ${PORT}`));

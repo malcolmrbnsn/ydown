@@ -1,0 +1,27 @@
+version: '3'
+services:
+  ydown:
+    container_name: "ydown"
+    build: .
+    restart: always
+    ports:
+      - 3001:3001
+    networks:
+      - backend
+    environment:
+      - MONGODB_URI="mongodb://mongodb"
+      - COOKIE_SECRET="goose"
+      - YTDL_NO_UPDATE=true
+    volumes:
+      - ./persist:/persist
+  mongo:
+    image: mongo
+    container_name: "mongodb"
+    networks:
+      - backend
+    volumes:
+      - ./mongodb:/data/db
+
+networks:
+  backend:
+    name: ydown-backend
