@@ -1,7 +1,6 @@
 const ytdl = require("ytdl-core"),
   fs = require("fs"),
   path = require("path"),
-  ffmpeg = require("ffmpeg-static"),
   schedule = require("node-schedule"),
   genThumbnail = require("simple-thumbnail"),
   db = require("../models");
@@ -16,8 +15,17 @@ let defaults = {
 function checkFileSync(file) {
   try {
     fs.statSync(file);
+
   } catch (e) {
     fs.writeFileSync(file, JSON.stringify(defaults));
+  }
+}
+
+function checkDirSync(dir) {
+  try {
+    fs.statSync(dir);
+  } catch (e) {
+    fs.mkdirSync(dir);
   }
 }
 
@@ -52,6 +60,11 @@ class Downloader {
 
   async downloadVideos() {
     if (this.options.enabled) {
+      // check the directories exist
+      checkDirSync("/persist/media");
+      checkDirSync("/persist/media/video");
+      checkDirSync("/persist/media/thumbnail");
+
       // get list of videos to download
       let videos = await db.Video.find({ downloaded: false });
 
@@ -78,8 +91,7 @@ class Downloader {
               await genThumbnail(
                 path.join(basePath, "video", videoFilename),
                 path.join(basePath, "thumbnail", thumbFilename),
-                "1280x720",
-                { path: ffmpeg.path }
+                "1280x720"
               );
               console.log("generated thumbnail " + id);
 

@@ -12,6 +12,7 @@ services:
       - MONGODB_URI="mongodb://mongodb"
       - COOKIE_SECRET="goose"
       - YTDL_NO_UPDATE=true
+      - TZ=Australia/Sydney
     volumes:
       - ./persist:/persist
   mongo:
