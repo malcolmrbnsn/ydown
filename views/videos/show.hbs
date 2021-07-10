@@ -1,8 +1,28 @@
 <div class="container">
-    <video width="100%" controls>
-        <source src="/video/{{video.videoId}}.mp4" />
-    </video>
-    <h1>{{video.title}} <a href="/videos/{{video._id}}/watched" class="btn btn-success">Mark watched</a></h1>
-    <h2>{{video.channelauthor}}</h2>
-    <p>{{splitLines video.description}}</p>
+  <div class="h-100 d-flex flex-column px-2">
+    <div cass="flex-column px-2 flex-grow-1 overflow-auto">
+        <video width="100%" controls>
+            <source src="/video/{{video.videoId}}.mp4" />
+        </video>
+    </div>
+    <div class="flex-column px-2">
+          <h1>{{video.title}} </h1>
+          <h6>{{#if video.downloaded}}
+                {{#if video.watched}}Watched
+                {{else}}Downloaded{{/if}}
+              {{else}}Download Scheduled{{/if}}</h6>
+          <form class="" action="/videos/{{video._id}}?_method=DELETE" method="POST">
+            {{#if video.downloaded}}
+              {{#if video.watched}}
+                <a href="/videos/{{video._id}}/watched" class="btn btn-primary" type="button">Mark unwatched</a>
+              {{else}}
+                <a href="/videos/{{video._id}}/watched" class="btn btn-primary" type="button">Mark watched</a>
+              {{/if}}
+            {{/if}}
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+          <h2>{{video.channelauthor}}</h2>
+          <p>{{{splitLines video.description}}}</p>
+    </div>
+  </div>
 </div>

@@ -1,8 +1,7 @@
 <div class="container">
-    <div class="d-flex bd-highlight mb-3">
+    <div class="d-flex bd-highlight mb6">
         <h1 class="me-auto p-2 flex-grow-1 bd-highlight">Library</h1>
         <form class="input-group p-2 bd-highlight align-self-center" style="width: auto;" action="/videos" method="POST">
-    {{!-- <form class="" action="/videos" method="POST" name="addVideo"></form> --}}
             <input class="form-control" type="url" name="url" placeholder="Video URL" >
             <button class="btn btn-success align-self-center" type="submit" >Add Video</button>
         </form>
@@ -23,7 +22,7 @@
                         {{else}}Download Scheduled{{/if}}</h6>
                     <form class="btn-group" action="/videos/{{this._id}}?_method=DELETE" method="POST">
                         {{#if this.downloaded}}
-                        <a class="btn btn-success" href="/videos/{{this._id}}">Watch Now</a>
+                        <a class="btn btn-success stretched-link" href="/videos/{{this._id}}">Watch Now</a>
                         {{#if this.watched}}
                         <a href="/videos/{{this._id}}/watched" class="btn btn-primary" type="button">Mark unwatched</a>
                         {{else}}

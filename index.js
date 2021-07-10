@@ -43,7 +43,7 @@ app.engine(
       count: (val) => val.length,
       idMatches: (val1, val2) => val1.equals(val2),
       trimDescription: (text, len) => text.substring(0, len) + "...",
-      splitLines: (text) => text.split("\n"),
+      splitLines: (text) => text.replace(/(\r\n|\n|\r)/gm, '<br>'),
       ifEquals: (val1, val2, options) =>
         val1 === val2 ? options.fn(this) : options.inverse(this),
     },
