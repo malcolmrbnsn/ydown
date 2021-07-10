@@ -1,5 +1,6 @@
 const router = require("express").Router(),
-  Downloader = require("../middleware/downloader");
+  Downloader = require("../middleware/downloader"),
+  { isLoggedIn } = require("../middleware/auth");
 
 // Start the scheduler
 let downloader = new Downloader();
