@@ -5,7 +5,7 @@ const router = require("express").Router(),
 // Start the scheduler
 let downloader = new Downloader();
 
-router.get("/options", isLoggedIn, async (req, res) => {
+router.get("/options", async (req, res) => {
   let { hours, minutes, enabled } = downloader.options;
   currentTime = hours + ":" + minutes;
   return res.render("auth/options", {
@@ -15,7 +15,7 @@ router.get("/options", isLoggedIn, async (req, res) => {
   });
 });
 
-router.post("/options", isLoggedIn, (req, res) => {
+router.post("/options", (req, res) => {
   // get settings from the request
   let [hours, minutes] = req.body.downloadTime.split(":");
   let enabled = req.body.enabled === "1";

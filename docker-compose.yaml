@@ -1,7 +1,7 @@
 version: '3'
 services:
-  ydown:
-    container_name: "ydown"
+  backend:
+    container_name: "ydown_backend"
     build: .
     restart: always
     ports:
@@ -15,9 +15,11 @@ services:
       - TZ=Australia/Sydney
     volumes:
       - ./persist:/persist
-  mongo:
+  mongodb:
     image: mongo
-    container_name: "mongodb"
+    container_name: "ydown_mongodb"
+    ports:
+      - 27017:27017
     networks:
       - backend
     volumes:
@@ -25,4 +27,4 @@ services:
 
 networks:
   backend:
-    name: ydown-backend
+    name: ydown_backend
