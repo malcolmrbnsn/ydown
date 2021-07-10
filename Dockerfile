@@ -2,7 +2,7 @@
 FROM jrottenberg/ffmpeg:4.1-alpine
 FROM node:current-alpine
 
-# install ffmpeg binaries
+# install ffmpeg binaries to node image
 COPY --from=0 / /
 
 WORKDIR /app
@@ -11,9 +11,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# copy the rest of the files
+# copy the rest of the code
 COPY . ./
 
-# expose the port and start server
+# expose the port, set the volume and start server
+VOLUME /persist
 EXPOSE 3001
 CMD ["npm", "start"]
