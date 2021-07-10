@@ -53,6 +53,7 @@ app.set("view engine", "hbs");
 
 // Static media
 app.use(express.static("/persist/media"))
+app.use(express.static("public/"))
 
 // import routes
 const indexRoutes = require("./routes"),
