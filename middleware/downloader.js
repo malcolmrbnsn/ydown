@@ -52,7 +52,7 @@ class Downloader {
     );
 
     // reset the scheduler
-    this.scheduler.reschedule(newOptions);
+    this.scheduler.reschedule(newOptions, this.downloadVideos.vind(this));
 
     // save to file
     fs.writeFileSync("/persist/options.json", JSON.stringify(newOptions));
