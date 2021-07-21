@@ -6,8 +6,11 @@ const ytdl = require("ytdl-core"),
 const { checkLogin } = require("../middleware/auth");
 
 router.get("/", async (req, res) => {
-  // get all videos from the database
-  let videos = await Video.find().sort({ date: "ascending" }).lean().exec();
+  let watched = req.query.show !== "unwatched"
+  
+
+  let videos = await Video.find({watched}).sort({ date: "ascending" }).lean().exec();
+
   // return to user
   return res.render("videos/library", { videos, title: "Library" });
 });
@@ -104,9 +107,7 @@ router.delete("/:id", checkLogin, async (req, res) => {
     // if video was downloaded
     if (video.downloaded) {
       // delete the video from disk
-      fs.unlinkSync(
-        path.join(__dirname, "../", "public", "video", video.videoId + ".mp4")
-      );
+      fs.unlinkSync("/persist/media/video/" + video.videoId + ".mp4");
     }
 
     // Delete the video

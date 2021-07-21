@@ -134,7 +134,7 @@ router.get("/logout", (req, res) => {
 
     // return user to home page
     req.flash("success", "Logged out.");
-    res.redirect("/login");
+    return res.redirect("/login");
   } catch (error) {
     console.log(error);
     req.flash("error", "An error occured.");
