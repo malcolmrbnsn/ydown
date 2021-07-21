@@ -3,10 +3,11 @@
         <h1 class="me-auto p-2 flex-grow-1 bd-highlight">
           Library
           <a class="btn btn-primary"
-            {{#if watched}}
-              href="/videos?show=unwatched">Hide watched
+            {{#if unwatchedOnly}}
+              href="/videos">Show all
             {{else}}
-              href="/videos">Show all{{/if}}
+              href="/videos?show=unwatched">Hide watched
+            {{/if}}
           </a>
         </h1>
         <form class="input-group p-2 bd-highlight align-self-center" style="width: auto;" action="/videos" method="POST">

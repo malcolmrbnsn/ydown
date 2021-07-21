@@ -6,12 +6,17 @@ const ytdl = require("ytdl-core"),
 const { checkLogin } = require("../middleware/auth");
 
 router.get("/", async (req, res) => {
-  let watched = req.query.show !== "unwatched"
-
-  let videos = await Video.find({watched}).sort({ date: "ascending" }).lean().exec();
+  let unwatchedOnly = req.query.show === "unwatched"
+  let videos;
+ 
+  if (unwatchedOnly) {
+    videos = await Video.find({watched: false}).sort({ date: "ascending" }).lean().exec();
+  } else {
+    videos = await Video.find().sort({ date: "ascending" }).lean().exec();
+  }
 
   // return to user
-  return res.render("videos/library", { videos, watched, title: "Library" });
+  return res.render("videos/library", { videos, unwatchedOnly, title: "Library" });
 });
 
 router.post("/", async (req, res) => {

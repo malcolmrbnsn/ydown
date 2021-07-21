@@ -1,14 +1,14 @@
 <div class="container">
     <h1>Downloader</h1>
-    <form action="/options" method="POST" class="needs-validation" novalidate>
-        <div class="mb-3 row">
+    <form action="/options" method="POST" class="needs-validation mb-2" novalidate>
+        <div class="mb-3 row p-2">
             <label for="enabled" class="form-label">Enable Downloader</label>
             <select class="form-select form-control" name="enabled">
                 <option {{#if enabled}}selected{{/if}} value="1">Enabled</option>
                 <option {{#unless enabled}}selected{{/unless}} value="0">Disabled</option>
             </select>
         </div>
-        <div class="mb-3 row">
+        <div class="mb-3 row p-2">
             <label for="downloadTime" class="form-label">Download Time</label>
             <input type="time" class="form-control" id="downloadTime" name="downloadTime" required value={{currentTime}}>
         </div>
@@ -16,15 +16,15 @@
     </form>
     <h1>Change Password</h1>
     <form action="/changepassword" method="POST" class="needs-validation" novalidate>
-        <div class="mb-3 row">
+        <div class="mb-3 row p-2">
             <label for="oldPassword" class="form-label">Old Password</label>
             <input type="password" class="form-control" name="oldPassword" id="oldPassword" required placeholder="">
         </div>
-        <div class="mb-3 row">
+        <div class="mb-3 row p-2">
             <label for="newPassword" class="form-label">New Password</label>
             <input type="password" class="form-control" id="newPassword" name="newPassword" required placeholder="">
         </div>
-        <div class="mb-3 row">
+        <div class="mb-3 row p-2">
             <label for="newPasswordRepeat" class="form-label">Repeat New Password</label>
             <input type="password" class="form-control" id="newPasswordRepeat" name="newPasswordRepeat" required placeholder="">
         </div>
